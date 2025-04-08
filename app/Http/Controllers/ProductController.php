@@ -21,6 +21,18 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Producto creado con éxito');
     }
 
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric'
+        ]);
+
+        $product->update($request->only('name', 'description', 'price'));
+
+        return redirect()->back()->with('success', 'Producto actualizado');
+    }
+
     public function destroy(Product $product) {
         $product->delete();
         return redirect()->back()->with('success', 'Producto eliminado');

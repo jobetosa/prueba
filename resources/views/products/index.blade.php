@@ -19,7 +19,15 @@
   <ul>
     @foreach($products as $product)
       <li>
-        {{ $product->name }} - ${{ $product->price }}
+        <form method="POST" action="{{ route('products.update', $product) }}" style="display:inline-block; margin-bottom: 10px;">
+          @csrf
+          @method('PUT')
+          <input name="name" value="{{ $product->name }}" required>
+          <input name="price" value="{{ $product->price }}" required type="number" step="0.01">
+          <input name="description" value="{{ $product->description }}">
+          <button type="submit">Actualizar</button>
+        </form>
+
         <form method="POST" action="{{ route('products.destroy', $product) }}" style="display:inline">
           @csrf
           @method('DELETE')
